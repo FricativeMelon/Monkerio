@@ -1,0 +1,148 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scenes/Rock.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/LeftLeaf.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/HorizWall.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/Bush.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/DownLeaf.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/Monkey.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/Market.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/UpLeaf.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/RightLeaf.tscn" type="PackedScene" id=9]
+[ext_resource path="res://levels/Main.gd" type="Script" id=10]
+[ext_resource path="res://images/Grass 1.png" type="Texture" id=11]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 10 )
+
+[node name="Grass1" type="Sprite" parent="."]
+position = Vector2( 543, 594 )
+texture = ExtResource( 11 )
+
+[node name="Bush" parent="." instance=ExtResource( 4 )]
+position = Vector2( 346, 336 )
+
+[node name="Rock" parent="." instance=ExtResource( 1 )]
+position = Vector2( 464, 246 )
+
+[node name="Market" parent="." instance=ExtResource( 7 )]
+position = Vector2( 622, 263 )
+
+[node name="DownLeaf" parent="." instance=ExtResource( 5 )]
+position = Vector2( 342, 186 )
+
+[node name="LeftLeaf" parent="." instance=ExtResource( 2 )]
+position = Vector2( 379, 325 )
+
+[node name="RightLeaf" parent="." instance=ExtResource( 9 )]
+position = Vector2( 597, 324 )
+
+[node name="UpLeaf" parent="." instance=ExtResource( 8 )]
+position = Vector2( 486, 419 )
+
+[node name="RightLeaf2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 242, 432 )
+
+[node name="VerticalWall" parent="." instance=ExtResource( 3 )]
+position = Vector2( 332, 472 )
+
+[node name="VerticalWall2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 195, 335 )
+
+[node name="VerticalWall3" parent="." instance=ExtResource( 3 )]
+position = Vector2( 585, 457 )
+
+[node name="VerticalWall4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 661, 427 )
+
+[node name="Monkey" parent="." instance=ExtResource( 6 )]
+position = Vector2( 345, 225 )
+
+[node name="Monkey2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 466, 156 )
+
+[node name="Monkey3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 342, 146 )
+
+[node name="Timescale" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="HSlider" type="HSlider" parent="Timescale"]
+margin_right = 158.0
+margin_bottom = 16.0
+rect_scale = Vector2( 1.44442, 1.13458 )
+max_value = 7.0
+
+[node name="0" type="Label" parent="Timescale"]
+margin_left = 4.0
+margin_top = 16.0
+margin_right = 15.0
+margin_bottom = 30.0
+text = "0x"
+
+[node name="1" type="Label" parent="Timescale"]
+margin_left = 34.0
+margin_top = 16.0
+margin_right = 49.0
+margin_bottom = 30.0
+text = "1x"
+
+[node name="2" type="Label" parent="Timescale"]
+margin_left = 63.0
+margin_top = 15.0
+margin_right = 78.0
+margin_bottom = 29.0
+text = "2x"
+
+[node name="4" type="Label" parent="Timescale"]
+margin_left = 91.0
+margin_top = 16.0
+margin_right = 106.0
+margin_bottom = 30.0
+text = "4x"
+
+[node name="8" type="Label" parent="Timescale"]
+margin_left = 121.0
+margin_top = 16.0
+margin_right = 136.0
+margin_bottom = 30.0
+text = "8x"
+
+[node name="16" type="Label" parent="Timescale"]
+margin_left = 149.0
+margin_top = 17.0
+margin_right = 172.0
+margin_bottom = 31.0
+text = "16x"
+
+[node name="32" type="Label" parent="Timescale"]
+margin_left = 179.0
+margin_top = 17.0
+margin_right = 194.0
+margin_bottom = 31.0
+text = "32x"
+
+[node name="64" type="Label" parent="Timescale"]
+margin_left = 210.0
+margin_top = 17.0
+margin_right = 225.0
+margin_bottom = 31.0
+text = "64x"
+
+[node name="Score" type="Control" parent="."]
+margin_left = 295.0
+margin_top = 5.0
+margin_right = 335.0
+margin_bottom = 45.0
+
+[node name="DollarSign" type="Label" parent="Score"]
+margin_left = -21.0
+margin_right = 19.0
+margin_bottom = 14.0
+text = "$"
+
+[node name="Label" type="Label" parent="Score"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "0"

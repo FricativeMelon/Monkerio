@@ -41,6 +41,14 @@ func set_right_item(item):
 		get_node("RightItem").hide()
 	right_item = item
 
+func try_sell():
+	if left_item != null:
+		get_node("..").add_score(left_item)
+		set_left_item(null)
+	if right_item != null:
+		get_node("..").add_score(right_item)
+		set_right_item(null)
+
 func try_pick_up(item):
 	if left_item == null:
 		set_left_item(item)
@@ -54,8 +62,8 @@ func try_pick_up(item):
 	else:
 		return false
 
-func _process(delta):
-	var ts = get_node("../Timescale/HSlider").value
+func _physics_process(delta):
+	var ts = get_node("..").get_timescale()
 	if moving == false and fullness > 0:
 		moving = true
 	fullness -= ts*delta
@@ -81,4 +89,5 @@ func _process(delta):
 
 
 func _on_Area2D_area_entered(area):
+	#if get_node("../Timescale/HSlider").value < 0:
 	area.get_parent().change_monkey(self)
