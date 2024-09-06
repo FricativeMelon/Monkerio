@@ -15,3 +15,7 @@ func change_monkey(m : Node2D):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func monkey_leaves(m):
+	pass	

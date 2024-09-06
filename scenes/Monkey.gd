@@ -15,7 +15,10 @@ var fullness = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	get_node("..").beds_minus_monkeys -= 1
+	
+func _exit_tree():
+	get_node("..").beds_minus_monkeys += 1
 	
 func change_monkey(m):
 	if left_item != null and m.try_pick_up(left_item):
@@ -23,6 +26,9 @@ func change_monkey(m):
 	if right_item != null and m.try_pick_up(right_item):
 		set_right_item(null)
 	
+func monkey_leaves(m):
+	pass	
+
 func set_left_item(item):
 	if left_item == null and item != null:
 		var n = get_node("LeftItem")
@@ -62,6 +68,17 @@ func try_pick_up(item):
 	else:
 		return false
 
+func update_sprite():
+	match dir:
+		Vector2(1, 0):
+			$Sprite.region_rect.position.x = 0
+		Vector2(0, -1):
+			$Sprite.region_rect.position.x = 64
+		Vector2(-1, 0):
+			$Sprite.region_rect.position.x = 128
+		Vector2(0, 1):
+			$Sprite.region_rect.position.x = 192
+
 func _physics_process(delta):
 	var ts = get_node("..").get_timescale()
 	if moving == false and fullness > 0:
@@ -83,6 +100,7 @@ func _physics_process(delta):
 	get_node("ProgressBar").value = fullness
 	if moving:
 		position += ts*delta*speed*dir
+	update_sprite()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -91,3 +109,7 @@ func _physics_process(delta):
 func _on_Area2D_area_entered(area):
 	#if get_node("../Timescale/HSlider").value < 0:
 	area.get_parent().change_monkey(self)
+
+
+func _on_Area2D_area_exited(area):
+	area.get_parent().monkey_leaves(self)

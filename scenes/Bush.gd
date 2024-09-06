@@ -13,6 +13,9 @@ func _ready():
 func change_monkey(m : Node2D):
 	m.try_pick_up(1)
 
+func monkey_leaves(m):
+	pass	
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
