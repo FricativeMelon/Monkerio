@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/Monkey.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Bush.tscn" type="PackedScene" id=2]
@@ -13,6 +13,12 @@
 [ext_resource path="res://images/Grass 1.png" type="Texture" id=11]
 [ext_resource path="res://scenes/Rock.tscn" type="PackedScene" id=12]
 [ext_resource path="res://images/deep_ocean_battlemap_tilable.png" type="Texture" id=13]
+[ext_resource path="res://images/wall.png" type="Texture" id=14]
+[ext_resource path="res://images/Bed.png" type="Texture" id=15]
+[ext_resource path="res://images/rock.png" type="Texture" id=16]
+[ext_resource path="res://images/bush.png" type="Texture" id=17]
+[ext_resource path="res://images/items.png" type="Texture" id=18]
+[ext_resource path="res://scenes/ConstructionBed.tscn" type="PackedScene" id=19]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Grass 1.png 0"
@@ -47,6 +53,40 @@
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 8 )
 region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 8 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 8 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 8 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 14 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="DynamicFontData" id=8]
+font_path = "res://fonts/Aileron-Black.otf"
+
+[sub_resource type="DynamicFont" id=9]
+size = 22
+font_data = SubResource( 8 )
+
+[sub_resource type="DynamicFontData" id=10]
+font_path = "res://fonts/Aileron-Black.otf"
+
+[sub_resource type="DynamicFont" id=11]
+size = 12
+font_data = SubResource( 10 )
 
 [node name="Main" type="Node2D"]
 rotation = -0.00211286
@@ -277,7 +317,6 @@ margin_bottom = 28.0
 text = "Build"
 
 [node name="Commands" type="Control" parent="CanvasLayer"]
-visible = false
 margin_left = 822.0
 margin_top = 113.0
 margin_right = 862.0
@@ -300,9 +339,58 @@ margin_bottom = -4.0
 [node name="RightLeaf" type="TextureButton" parent="CanvasLayer/Commands/TabContainer/Build"]
 margin_left = 12.0
 margin_top = 9.0
-margin_right = 75.0
-margin_bottom = 65.0
+margin_right = 76.0
+margin_bottom = 73.0
+rect_pivot_offset = Vector2( 42, 103 )
 texture_normal = SubResource( 2 )
+
+[node name="UpLeaf" type="TextureButton" parent="CanvasLayer/Commands/TabContainer/Build"]
+margin_left = 11.0
+margin_top = 80.0
+margin_right = 75.0
+margin_bottom = 144.0
+rect_pivot_offset = Vector2( 42, 103 )
+texture_normal = SubResource( 3 )
+
+[node name="LeftLeaf" type="TextureButton" parent="CanvasLayer/Commands/TabContainer/Build"]
+margin_left = 10.0
+margin_top = 155.0
+margin_right = 74.0
+margin_bottom = 219.0
+rect_pivot_offset = Vector2( 42, 103 )
+texture_normal = SubResource( 4 )
+
+[node name="DownLeaf" type="TextureButton" parent="CanvasLayer/Commands/TabContainer/Build"]
+margin_left = 14.0
+margin_top = 231.0
+margin_right = 78.0
+margin_bottom = 295.0
+rect_pivot_offset = Vector2( 42, 103 )
+texture_normal = SubResource( 5 )
+
+[node name="HorizWall" type="TextureButton" parent="CanvasLayer/Commands/TabContainer/Build"]
+margin_left = 19.0
+margin_top = 294.0
+margin_right = 83.0
+margin_bottom = 358.0
+rect_pivot_offset = Vector2( 42, 103 )
+texture_normal = SubResource( 6 )
+
+[node name="VerticalWall" type="TextureButton" parent="CanvasLayer/Commands/TabContainer/Build"]
+margin_left = 19.0
+margin_top = 360.0
+margin_right = 83.0
+margin_bottom = 424.0
+rect_pivot_offset = Vector2( 42, 103 )
+texture_normal = SubResource( 7 )
+
+[node name="Bed" type="TextureButton" parent="CanvasLayer/Commands/TabContainer/Build"]
+margin_left = 89.0
+margin_top = 12.0
+margin_right = 153.0
+margin_bottom = 76.0
+rect_pivot_offset = Vector2( 42, 103 )
+texture_normal = ExtResource( 15 )
 
 [node name="Info" type="Panel" parent="CanvasLayer/Commands/TabContainer"]
 visible = false
@@ -321,6 +409,162 @@ margin_bottom = 28.0
 disabled = true
 text = "Save Monkeys"
 
+[node name="Tutorial2" type="Control" parent="CanvasLayer"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Tutorial2"]
+margin_left = 10.0
+margin_top = 93.0
+margin_right = 785.0
+margin_bottom = 519.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Tutorial2/Panel"]
+margin_left = 143.0
+margin_top = 3.0
+margin_right = 213.0
+margin_bottom = 43.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 9 )
+text = "Guide"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="CanvasLayer/Tutorial2/Panel"]
+margin_left = 89.0
+margin_top = 35.0
+margin_right = 535.0
+margin_bottom = 117.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "This is a monkey! He will always keep moving, and if his blue bar of energy runs out, he will stop moving until he gets fed! This one is carrying two items (the maximum), which are Leaves. Monkeys will chow down on Leaves when they get low on energy, and also love to share their items with other Monkeys willy-nilly!"
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="CanvasLayer/Tutorial2/Panel"]
+margin_left = 139.0
+margin_top = 127.0
+margin_right = 340.0
+margin_bottom = 197.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "This is a Bush and a Rock! Monkeys will collect Leaves or Stone respectively when coming incontact with them"
+
+[node name="RichTextLabel8" type="RichTextLabel" parent="CanvasLayer/Tutorial2/Panel"]
+margin_left = 610.0
+margin_top = 26.0
+margin_right = 764.0
+margin_bottom = 127.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "Drag something from the Build Menu to place a blueprint! If a Monkey enters it while holding the exact materials shown, he will build it!"
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="CanvasLayer/Tutorial2/Panel"]
+margin_left = 271.0
+margin_top = 191.0
+margin_right = 472.0
+margin_bottom = 266.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "These are markers! Monkeys will change direction upon making contact with them. You can also drag these with your mouse!"
+
+[node name="RichTextLabel7" type="RichTextLabel" parent="CanvasLayer/Tutorial2/Panel"]
+margin_left = 147.0
+margin_top = 342.0
+margin_right = 391.0
+margin_bottom = 417.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "These are walls! Monkeys will turn right around when hitting a wall! Walls also cannot be moved once they are built, so plan carefully"
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="CanvasLayer/Tutorial2/Panel"]
+margin_left = 71.0
+margin_top = 267.0
+margin_right = 526.0
+margin_bottom = 342.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "This is a bed! If you have more beds than you have Monkeys, and two Monkeys find themselves on a bed together with enough energy...well after that you will have one more Monkey! Monkeys also will drop whatever Stones they are carrying by any Bed they come upon (it's a cultural thing)"
+
+[node name="Monkey3" parent="CanvasLayer/Tutorial2/Panel" instance=ExtResource( 1 )]
+position = Vector2( 46, 67 )
+rotation = -0.00211286
+script = null
+
+[node name="Area2D" parent="CanvasLayer/Tutorial2/Panel/Monkey3" index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="CanvasLayer/Tutorial2/Panel/Monkey3/Area2D" index="0"]
+visible = false
+
+[node name="LeftItem" parent="CanvasLayer/Tutorial2/Panel/Monkey3" index="2"]
+visible = true
+
+[node name="RightItem" parent="CanvasLayer/Tutorial2/Panel/Monkey3" index="3"]
+visible = true
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Tutorial2/Panel"]
+position = Vector2( 36, 158 )
+texture = ExtResource( 17 )
+
+[node name="Sprite2" type="Sprite" parent="CanvasLayer/Tutorial2/Panel"]
+position = Vector2( 98, 159 )
+texture = ExtResource( 16 )
+
+[node name="Sprite3" type="Sprite" parent="CanvasLayer/Tutorial2/Panel"]
+position = Vector2( 139, 223 )
+texture = ExtResource( 8 )
+
+[node name="Sprite4" type="Sprite" parent="CanvasLayer/Tutorial2/Panel"]
+position = Vector2( 39, 301 )
+texture = ExtResource( 15 )
+
+[node name="Items" type="Sprite" parent="CanvasLayer/Tutorial2/Panel"]
+position = Vector2( 48, 106 )
+texture = ExtResource( 18 )
+
+[node name="Wall" type="Sprite" parent="CanvasLayer/Tutorial2/Panel"]
+position = Vector2( 70, 371 )
+texture = ExtResource( 14 )
+
+[node name="ConstructionBed" parent="CanvasLayer/Tutorial2/Panel" instance=ExtResource( 19 )]
+position = Vector2( 568, 58 )
+script = null
+
+[node name="Area2D" parent="CanvasLayer/Tutorial2/Panel/ConstructionBed" index="4"]
+visible = false
+
+[node name="CollisionShape2D" parent="CanvasLayer/Tutorial2/Panel/ConstructionBed/Area2D" index="0"]
+visible = false
+
+[node name="Panel2" type="Panel" parent="CanvasLayer/Tutorial2"]
+margin_left = 9.0
+margin_top = 35.0
+margin_right = 405.0
+margin_bottom = 75.0
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="CanvasLayer/Tutorial2/Panel2"]
+margin_left = 3.0
+margin_top = 1.0
+margin_right = 395.0
+margin_bottom = 39.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "Change how fast time goes by and check how much time has passed for your Monkeys here!"
+
 [connection signal="pressed" from="CanvasLayer/BuildMenu" to="." method="_on_BuildMenu_pressed"]
 [connection signal="button_down" from="CanvasLayer/Commands/TabContainer/Build/RightLeaf" to="." method="_on_RightLeaf_button_down"]
+[connection signal="button_down" from="CanvasLayer/Commands/TabContainer/Build/UpLeaf" to="." method="_on_UpLeaf_button_down"]
+[connection signal="button_down" from="CanvasLayer/Commands/TabContainer/Build/LeftLeaf" to="." method="_on_LeftLeaf_button_down"]
+[connection signal="button_down" from="CanvasLayer/Commands/TabContainer/Build/DownLeaf" to="." method="_on_DownLeaf_button_down"]
+[connection signal="button_down" from="CanvasLayer/Commands/TabContainer/Build/HorizWall" to="." method="_on_HorizWall_button_down"]
+[connection signal="button_down" from="CanvasLayer/Commands/TabContainer/Build/VerticalWall" to="." method="_on_VerticalWall_button_down"]
+[connection signal="button_down" from="CanvasLayer/Commands/TabContainer/Build/Bed" to="." method="_on_Bed_button_down"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
+
+[editable path="CanvasLayer/Tutorial2/Panel/Monkey3"]
+[editable path="CanvasLayer/Tutorial2/Panel/ConstructionBed"]

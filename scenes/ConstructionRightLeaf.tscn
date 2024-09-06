@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://images/construction_lines.png" type="Texture" id=1]
-[ext_resource path="res://scenes/ConstructionLeaf.gd" type="Script" id=2]
+[ext_resource path="res://scenes/ConstructionRightLeaf.gd" type="Script" id=2]
 [ext_resource path="res://images/leafpointright.png" type="Texture" id=3]
 [ext_resource path="res://images/items.png" type="Texture" id=4]
 

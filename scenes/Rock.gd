@@ -17,5 +17,5 @@ func change_monkey(m : Node2D):
 #	pass
 
 
-func monkey_leaves(m):
+func monkey_leaves(_m):
 	pass	

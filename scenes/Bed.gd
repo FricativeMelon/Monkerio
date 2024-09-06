@@ -19,6 +19,10 @@ func _exit_tree():
 #	pass
 
 func change_monkey(m):
+	if m.left_item == 2:
+		m.set_left_item(null)
+	if m.right_item == 2:
+		m.set_right_item(null)
 	if get_node("..").beds_minus_monkeys <= 0:
 		return
 	if current_partner != null and current_partner.fullness >= 70 and m.fullness >= 70:
@@ -32,7 +36,7 @@ func change_monkey(m):
 		current_partner = m
 
 
-func monkey_leaves(m):
+func monkey_leaves(_m):
 	current_partner = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

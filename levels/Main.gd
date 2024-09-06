@@ -6,6 +6,12 @@ extends Node2D
 # var b = "text"
 
 var right_leaf = preload("res://scenes/ConstructionRightLeaf.tscn")
+var up_leaf = preload("res://scenes/ConstructionUpLeaf.tscn")
+var left_leaf = preload("res://scenes/ConstructionLeftLeaf.tscn")
+var down_leaf = preload("res://scenes/ConstructionDownLeaf.tscn")
+var hor_wall = preload("res://scenes/ConstructionHorWall.tscn")
+var vert_wall = preload("res://scenes/ConstructionVerticalWall.tscn")
+var bed = preload("res://scenes/ConstructionBed.tscn")
 
 var score = 0
 var dragging = false
@@ -53,8 +59,7 @@ func _on_Button_pressed():
 	last_bush.change_monkey(last_2_monkeys1)
 	last_bush.change_monkey(last_2_monkeys2)
 
-func _on_RightLeaf_button_down():
-	var i = right_leaf.instance()
+func create_construct(i):
 	i.position = get_global_mouse_position()
 	i.dragging = true
 	dragging = true
@@ -65,7 +70,34 @@ func _on_RightLeaf_button_down():
 	get_node("CanvasLayer/Commands").hide()
 	get_node("CanvasLayer/BuildMenu").show()
 
+func _on_RightLeaf_button_down():
+	create_construct(right_leaf.instance())
+
 
 func _on_BuildMenu_pressed():
 	get_node("CanvasLayer/Commands").show()
 	get_node("CanvasLayer/BuildMenu").hide()
+
+
+func _on_UpLeaf_button_down():
+	create_construct(up_leaf.instance())
+
+
+func _on_LeftLeaf_button_down():
+	create_construct(left_leaf.instance())
+
+
+func _on_DownLeaf_button_down():
+	create_construct(down_leaf.instance())
+
+
+func _on_HorizWall_button_down():
+	create_construct(hor_wall.instance())
+
+
+func _on_VerticalWall_button_down():
+	create_construct(vert_wall.instance())
+
+
+func _on_Bed_button_down():
+	create_construct(bed.instance())
