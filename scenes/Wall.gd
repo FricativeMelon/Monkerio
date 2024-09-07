@@ -21,5 +21,5 @@ func change_monkey(m):
 	m.dir = -m.dir
 
 
-func monkey_leaves(m):
+func monkey_leaves(_m):
 	pass	

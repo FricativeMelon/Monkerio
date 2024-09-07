@@ -26,7 +26,7 @@ func change_monkey(m):
 	if right_item != null and m.try_pick_up(right_item):
 		set_right_item(null)
 	
-func monkey_leaves(m):
+func monkey_leaves(_m):
 	pass	
 
 func set_left_item(item):

@@ -21,6 +21,8 @@ func _ready():
 
 func change_monkey(m):
 	m.dir = dir
+	dir = -dir
+	$Sprite.region_rect.position.x = int($Sprite.region_rect.position.x + 128)%256
 	
 func monkey_leaves(_m):
 	pass	

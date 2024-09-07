@@ -39,6 +39,8 @@ func _unhandled_input(event):
 	if event.is_action("camera_zoom_out"):
 		zoom.y = clamp(zoom.y*1.5, 1, 16)
 		zoom.x = clamp(zoom.x*1.5, 1, 16)
+	position.x =min(max(position.x,-14706+zoom.x*450), 14990-zoom.x*450)
+	position.y =min(max(position.y,-13217+zoom.y*190), 16478-zoom.y*190)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

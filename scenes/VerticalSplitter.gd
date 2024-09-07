@@ -7,7 +7,7 @@ extends Draggable
 
 export(Vector2) var dir
 
-func _init(p_dir = Vector2(1, 0)):
+func _init(p_dir = Vector2(0, -1)):
 	dir = p_dir
 
 # Called when the node enters the scene tree for the first time.
@@ -21,6 +21,8 @@ func _ready():
 
 func change_monkey(m):
 	m.dir = dir
+	dir = -dir
+	$Sprite.region_rect.position.x = int($Sprite.region_rect.position.x + 128)%256
 	
 func monkey_leaves(_m):
 	pass	
