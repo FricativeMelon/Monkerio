@@ -85,7 +85,6 @@ func update_sprite():
 			$Sprite.region_rect.position.x = 192
 
 func _physics_process(delta):
-	var par = get_node("..")
 	var ts = get_node("..").get_timescale()
 	if moving == false and fullness > 0:
 		moving = true

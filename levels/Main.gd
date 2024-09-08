@@ -25,6 +25,7 @@ var awake_monkey_count = 2
 var minutes_count = 0
 var timer = 1
 var seen_guide = false
+var stopped = false
 onready var last_2_monkeys1 = get_node("Monkey")
 onready var last_2_monkeys2 = get_node("Monkey2")
 onready var last_bush = get_node("Bush")
@@ -229,7 +230,7 @@ func monkey_leaves(_m):
 
 func _on_TextEdit_text_changed():
 	if $CanvasLayer/Story/StoryPanel/TextEdit.text == "12ANGRYMONKEYS":
-		for i in range(12):
+		for _i in range(12):
 			var a = real_bed.instance()
 			a.position = last_bush.position
 			add_child_below_node(get_node("Bed"), a)
@@ -237,7 +238,7 @@ func _on_TextEdit_text_changed():
 			a.position = last_bush.position
 			add_child_below_node(get_node("Monkey"), a)
 	if $CanvasLayer/Story/StoryPanel/TextEdit.text == "SPLITTERMISS":
-		for i in range(6):
+		for _i in range(6):
 			var a = real_splitter_hor.instance()
 			a.position = last_bush.position
 			add_child_below_node(get_node("Bed"), a)
@@ -246,12 +247,19 @@ func _on_TextEdit_text_changed():
 			add_child_below_node(get_node("Bed"), a)
 
 
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+		stopped = true
+		get_tree().quit() # default behavior
+
 func _on_HSlider_value_changed(value):
 	if value < -20:
 		value = value * (-value/20)
 	$AudioStreamPlayer.volume_db = value
 
-func _on_FullArea_area_exited(area):
+func _on_FullArea_area_exited(_area):
+	if stopped:
+		return
 	compute_explored()
 	if not shore_award:
 		shore_award = true

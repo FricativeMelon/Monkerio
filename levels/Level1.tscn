@@ -23,11 +23,11 @@
 [ext_resource path="res://images/splitter.png" type="Texture" id=21]
 [ext_resource path="res://images/monkeyidle.png" type="Texture" id=22]
 
-[sub_resource type="RectangleShape2D" id=17]
-extents = Vector2( 174.497, 62.6329 )
-
 [sub_resource type="RectangleShape2D" id=16]
 extents = Vector2( 9755.48, 14846.4 )
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 174.497, 62.6329 )
 
 [sub_resource type="TileSet" id=1]
 0/name = "Grass 1.png 0"
@@ -115,6 +115,16 @@ bg_color = Color( 0.25, 0.25, 0.25, 1 )
 rotation = -0.00211286
 script = ExtResource( 9 )
 
+[node name="FullArea" type="Area2D" parent="."]
+position = Vector2( 401.482, 245.849 )
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FullArea"]
+position = Vector2( -400.742, 1298.03 )
+scale = Vector2( 1.51966, 1 )
+shape = SubResource( 16 )
+
 [node name="ExploredArea" type="Area2D" parent="."]
 position = Vector2( 401.482, 245.849 )
 collision_layer = 8
@@ -123,16 +133,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExploredArea"]
 position = Vector2( 22.5104, -12.3183 )
 shape = SubResource( 17 )
-
-[node name="FullArea" type="Area2D" parent="."]
-position = Vector2( 401.482, 245.849 )
-collision_layer = 8
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FullArea"]
-position = Vector2( -282.088, 1295.74 )
-scale = Vector2( 1.51966, 1 )
-shape = SubResource( 16 )
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2( -116.016, 7.75486 )
@@ -465,6 +465,13 @@ margin_right = 964.0
 margin_bottom = 24.0
 text = "Build"
 
+[node name="BuildMenu2" type="Button" parent="CanvasLayer"]
+margin_left = 907.0
+margin_top = 4.0
+margin_right = 964.0
+margin_bottom = 24.0
+text = "Build"
+
 [node name="GuideMenuButton" type="Button" parent="CanvasLayer"]
 margin_left = 837.0
 margin_top = 4.0
@@ -780,8 +787,23 @@ custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_fonts/normal_font = SubResource( 11 )
 text = "Refer back to your goals and more info here!"
 
+[node name="Panel5" type="Panel" parent="CanvasLayer/GuideMenu"]
+margin_left = 866.0
+margin_top = 34.0
+margin_right = 969.0
+margin_bottom = 74.0
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="CanvasLayer/GuideMenu/Panel5"]
+margin_left = 5.0
+margin_top = 2.0
+margin_right = 107.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "Open the Build menu here!"
+
 [node name="Story" type="Control" parent="CanvasLayer"]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -793,42 +815,52 @@ margin_bottom = 516.0
 rect_pivot_offset = Vector2( 185, 341 )
 
 [node name="RichTextLabel3" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
-margin_left = 267.0
+margin_left = 166.0
 margin_top = 8.0
-margin_right = 498.0
+margin_right = 287.0
 margin_bottom = 48.0
 rect_pivot_offset = Vector2( 55, 61 )
-custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_colors/default_color = Color( 0.0352941, 1, 0, 1 )
 custom_fonts/normal_font = SubResource( 9 )
-text = "A chance encounter"
+text = "Monkerio"
+
+[node name="RichTextLabel12" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
+margin_left = 560.0
+margin_top = 66.0
+margin_right = 650.0
+margin_bottom = 106.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 0.968627, 0, 1, 1 )
+custom_fonts/normal_font = SubResource( 9 )
+text = "Credits"
 
 [node name="RichTextLabel6" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
-margin_left = 495.0
-margin_top = 154.0
-margin_right = 726.0
-margin_bottom = 194.0
+margin_left = 520.0
+margin_top = 296.0
+margin_right = 751.0
+margin_bottom = 336.0
 rect_pivot_offset = Vector2( 55, 61 )
-custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_colors/default_color = Color( 0.988235, 1, 0, 1 )
 custom_fonts/normal_font = SubResource( 9 )
 text = "Click to continue..."
 
 [node name="RichTextLabel4" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
 margin_left = 85.0
 margin_top = 182.0
-margin_right = 384.0
+margin_right = 421.0
 margin_bottom = 222.0
 rect_pivot_offset = Vector2( 55, 61 )
-custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_colors/default_color = Color( 0, 1, 0.960784, 1 )
 custom_fonts/normal_font = SubResource( 9 )
-text = "\"Let's build a luxury resort!\""
+text = "\"Let's build a vacation resort!\""
 
 [node name="RichTextLabel5" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
-margin_left = 256.0
+margin_left = 232.0
 margin_top = 301.0
-margin_right = 555.0
+margin_right = 531.0
 margin_bottom = 341.0
 rect_pivot_offset = Vector2( 55, 61 )
-custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_colors/default_color = Color( 0, 0.109804, 1, 1 )
 custom_fonts/normal_font = SubResource( 9 )
 text = "Your First Goals Are..."
 
@@ -840,7 +872,49 @@ margin_bottom = 102.0
 rect_pivot_offset = Vector2( 55, 61 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_fonts/normal_font = SubResource( 11 )
-text = "You are a rich architect, with no worries in the world. On one of your frequent cruises, you fell overboard, and washed up on this deserted island!"
+text = "You are a rich architect, with no worries in the world. On one of your frequent cruise vacations, you fell overboard, and washed up on this deserted island!"
+
+[node name="RichTextLabel11" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
+margin_left = 481.0
+margin_top = 95.0
+margin_right = 762.0
+margin_bottom = 134.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "10 Seamless, Grass textures/Grass1.png : LuminousDragonGames via OpenGameArt.org"
+
+[node name="RichTextLabel15" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
+margin_left = 38.0
+margin_top = 330.0
+margin_right = 205.0
+margin_bottom = 388.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 0.537255, 0, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "MixJam16 Themes: Vacation, Factory, Monkey"
+
+[node name="RichTextLabel13" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
+margin_left = 481.0
+margin_top = 136.0
+margin_right = 759.0
+margin_bottom = 201.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "Deep Ocean Battlemap: MiniModele via OpenGameArt.org under https://creativecommons.org/licenses/by/3.0/"
+
+[node name="RichTextLabel14" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
+margin_left = 481.0
+margin_top = 195.0
+margin_right = 759.0
+margin_bottom = 278.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 11 )
+text = "\"Island Meet and Greet\" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/"
 
 [node name="RichTextLabel8" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
 margin_left = 29.0
@@ -860,7 +934,7 @@ margin_bottom = 296.0
 rect_pivot_offset = Vector2( 55, 61 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_fonts/normal_font = SubResource( 11 )
-text = "You knew it would be a tough project, but you've built skyscrapers! It was time to get to work! With no contact yet with the outside world, you would have to start from scratch, with only your monkeys to help you..."
+text = "You knew it would be a tough project, but you've built skyscrapers! It was time to get to work! With no contact yet with the outside world, you would have to build a factory from scratch, with only your monkeys to help you..."
 
 [node name="RichTextLabel10" type="RichTextLabel" parent="CanvasLayer/Story/StoryPanel"]
 margin_left = 235.0
@@ -870,7 +944,7 @@ margin_bottom = 392.0
 rect_pivot_offset = Vector2( 55, 61 )
 custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_fonts/normal_font = SubResource( 11 )
-text = "Build up to a colony of at least 16 monkeys
+text = "Build up to a factory of at least 16 monkeys
 Create 20 connected wall sections for a building
 Get a single monkey to the shoreline"
 
@@ -896,10 +970,10 @@ margin_bottom = 397.0
 text = "0%"
 
 [node name="TextEdit" type="TextEdit" parent="CanvasLayer/Story/StoryPanel"]
-margin_left = 541.0
-margin_top = 50.0
-margin_right = 719.0
-margin_bottom = 90.0
+margin_left = 580.0
+margin_top = 16.0
+margin_right = 758.0
+margin_bottom = 56.0
 text = "Enter cheat code here..."
 
 [node name="MonkeyAwardPanel" type="PopupPanel" parent="CanvasLayer"]
@@ -960,8 +1034,8 @@ stream = ExtResource( 20 )
 volume_db = -13.275
 autoplay = true
 
-[connection signal="area_exited" from="ExploredArea" to="." method="_on_Area2D_area_exited"]
 [connection signal="area_exited" from="FullArea" to="." method="_on_FullArea_area_exited"]
+[connection signal="area_exited" from="ExploredArea" to="." method="_on_Area2D_area_exited"]
 [connection signal="button_down" from="CanvasLayer/Commands/TabContainer/Build/RightLeaf" to="." method="_on_RightLeaf_button_down"]
 [connection signal="mouse_entered" from="CanvasLayer/Commands/TabContainer/Build/RightLeaf" to="." method="_on_HoverCursor_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Commands/TabContainer/Build/RightLeaf" to="." method="_on_HoverCursor_mouse_exited"]
@@ -990,6 +1064,7 @@ autoplay = true
 [connection signal="mouse_entered" from="CanvasLayer/Commands/TabContainer/Build/VerticalSplitter" to="." method="_on_HoverCursor_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Commands/TabContainer/Build/VerticalSplitter" to="." method="_on_HoverCursor_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/BuildMenu" to="." method="_on_BuildMenu_pressed"]
+[connection signal="pressed" from="CanvasLayer/BuildMenu2" to="." method="_on_BuildMenu_pressed"]
 [connection signal="pressed" from="CanvasLayer/GuideMenuButton" to="." method="_on_GuideMenu_pressed"]
 [connection signal="pressed" from="CanvasLayer/StoryMenuButton" to="." method="_on_StoryMenuButton_pressed"]
 [connection signal="value_changed" from="CanvasLayer/HSlider" to="." method="_on_HSlider_value_changed"]
