@@ -14,6 +14,10 @@ var vert_wall = preload("res://scenes/ConstructionVerticalWall.tscn")
 var bed = preload("res://scenes/ConstructionBed.tscn")
 var hor_splitter = preload("res://scenes/ConstructionHorizSplitter.tscn")
 var vert_splitter = preload("res://scenes/ConstructionVerticalSplitter.tscn")
+var real_monkey = preload("res://scenes/Monkey.tscn")
+var real_bed = preload("res://scenes/Bed.tscn")
+var real_splitter_hor = preload("res://scenes/HorizSplitter.tscn")
+var real_splitter_vert = preload("res://scenes/VerticalSplitter.tscn")
 
 var score = 0
 var dragging = false
@@ -25,7 +29,14 @@ onready var last_2_monkeys1 = get_node("Monkey")
 onready var last_2_monkeys2 = get_node("Monkey2")
 onready var last_bush = get_node("Bush")
 
-var beds_minus_monkeys = 0
+var monkey_max_distance = Vector2(0, 0)
+var monkey_min_distance = Vector2(0, 0)
+
+var beds = 0
+var monkeys = 0
+var walls = 0
+var monkey_award = false
+var wall_award = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,12 +45,18 @@ func _ready():
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	
 func _physics_process(delta):
+	if monkeys >= 16 and not monkey_award:
+		monkey_award = true
+		get_node("CanvasLayer/MonkeyAwardPanel").popup()
+	if walls >= 20 and not wall_award:
+		wall_award = true
+		get_node("CanvasLayer/WallAwardPanel").popup()
 	if not Input.is_action_pressed("left_click"):
 		dragging = false
 	var ts = get_timescale()
 	timer = max(timer-delta, 0)
 	minutes_count += ts*delta/60
-	get_node("CanvasLayer/Score/NumExtraBeds").text = str(beds_minus_monkeys)
+	get_node("CanvasLayer/Score/Monkeys").text = str(monkeys)+"/"+str(beds)
 	get_node("CanvasLayer/Score/Label").text = "%10.2f" % minutes_count
 	if not last_2_monkeys1.moving and not last_2_monkeys2.moving:
 		get_node("CanvasLayer/Button").disabled = false
@@ -138,6 +155,7 @@ func _on_GuideMenu_pressed():
 		n.hide()
 	else:
 		n.show()
+		get_node("CanvasLayer/Commands").hide()
 		get_node("CanvasLayer/Story").hide()
 
 
@@ -146,14 +164,29 @@ func _on_StoryMenuButton_pressed():
 	if n.is_visible():
 		n.hide()
 	else:
+		get_node("CanvasLayer/Story/StoryPanel/MonkeyGoal").text = str(monkeys)+"/16"
+		get_node("CanvasLayer/Story/StoryPanel/WallGoal").text = str(walls)+"/20"
+		var minx =-14706
+		var maxx = 14990
+		var pos = $ExploredArea/CollisionShape2D.position
+		var ext = $ExploredArea/CollisionShape2D.shape.extents
+		var miny= -13217
+		var maxy = 16478
+		var xper1 = abs(-1+2*(pos.x - minx)/(maxx-minx))
+		var yper1 = abs(-1+2*(pos.y - miny)/(maxy-miny))
+		var xper2 = abs(-1+2*(pos.x+ext.x - minx)/(maxx-minx))
+		var yper2 = abs(-1+2*(pos.y+ext.y - miny)/(maxy-miny))
+		var s = max(max(xper1, yper1), max(xper2, yper2))*100
+		get_node("CanvasLayer/Story/StoryPanel/ShoreGoal").text = "%4.0f" % s+"%"
 		n.show()
 		get_node("CanvasLayer/GuideMenu").hide()
+		get_node("CanvasLayer/Commands").hide()
 
 func _on_StoryPanel_gui_input(event):
 	if event.is_action("left_click") and timer == 0:
 		get_node("CanvasLayer/Story").hide()
 		if not seen_guide:
-			timer = 2
+			timer = 1
 			seen_guide = true
 			get_node("CanvasLayer/GuideMenu").show()
 
@@ -161,3 +194,43 @@ func _on_StoryPanel_gui_input(event):
 func _on_GuidePanel_gui_input(event):
 	if event.is_action("left_click") and timer == 0:
 		get_node("CanvasLayer/GuideMenu").hide()
+
+
+func _on_Area2D_area_exited(area):
+	var mon = area.get_parent().position
+	var col = $ExploredArea/CollisionShape2D
+	if mon.x < col.position.x:
+		col.position.x = mon.x
+		col.shape.extents.x = mon.x
+	if mon.x > col.position.x + col.shape.extents.x:
+		col.shape.extents.x = mon.x
+	if mon.y < col.position.y:
+		col.position.y = mon.y
+		col.shape.extents.y = mon.y
+	if mon.y > col.position.y + col.shape.extents.y:
+		col.shape.extents.y = mon.y
+
+func change_monkey(_m):
+	pass
+	
+func monkey_leaves(_m):
+	pass	
+
+
+func _on_TextEdit_text_changed():
+	if $CanvasLayer/Story/StoryPanel/TextEdit.text == "12ANGRYMONKEYS":
+		for i in range(12):
+			var a = real_bed.instance()
+			a.position = last_bush.position
+			add_child_below_node(get_node("Bed"), a)
+			a = real_monkey.instance()
+			a.position = last_bush.position
+			add_child_below_node(get_node("Monkey"), a)
+	if $CanvasLayer/Story/StoryPanel/TextEdit.text == "SPLITTERMISS":
+		for i in range(6):
+			var a = real_splitter_hor.instance()
+			a.position = last_bush.position
+			add_child_below_node(get_node("Bed"), a)
+			a = real_splitter_vert.instance()
+			a.position = last_bush.position
+			add_child_below_node(get_node("Bed"), a)

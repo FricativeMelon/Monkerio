@@ -11,16 +11,20 @@ var moving = true
 var left_item = null
 var right_item = null
 
+var on_splitter = 0
+
 var fullness = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_node("..").beds_minus_monkeys -= 1
+	get_node("..").monkeys += 1
 	
 func _exit_tree():
-	get_node("..").beds_minus_monkeys += 1
+	get_node("..").monkeys -= 1
 	
 func change_monkey(m):
+	if on_splitter > 0:
+		return
 	if left_item != null and m.try_pick_up(left_item):
 		set_left_item(null)
 	if right_item != null and m.try_pick_up(right_item):
@@ -56,15 +60,16 @@ func try_sell():
 		set_right_item(null)
 
 func try_pick_up(item):
+	if item == 1 and fullness <= 70:
+		fullness+=30
+		return true
 	if left_item == null:
 		set_left_item(item)
 		return true
 	elif right_item == null:
 		set_right_item(item)
 		return true
-	elif item == 1 and fullness <= 70:
-		fullness+=30
-		return true
+
 	else:
 		return false
 
@@ -80,6 +85,7 @@ func update_sprite():
 			$Sprite.region_rect.position.x = 192
 
 func _physics_process(delta):
+	var par = get_node("..")
 	var ts = get_node("..").get_timescale()
 	if moving == false and fullness > 0:
 		moving = true
