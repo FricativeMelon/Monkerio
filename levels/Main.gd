@@ -37,6 +37,7 @@ var monkeys = 0
 var walls = 0
 var monkey_award = false
 var wall_award = false
+var shore_award = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -106,6 +107,8 @@ func _on_BuildMenu_pressed():
 	if n.is_visible():
 		n.hide()
 	else:
+		get_node("CanvasLayer/Story").hide()
+		get_node("CanvasLayer/GuideMenu").hide()
 		n.show()
 	#get_node("CanvasLayer/BuildMenu").hide()
 
@@ -149,6 +152,23 @@ func _on_HoverCursor_mouse_exited():
 	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 
 
+func compute_explored():
+	var minx =-14706
+	var maxx = 14990
+	var pos = $ExploredArea/CollisionShape2D.position
+	var ext = $ExploredArea/CollisionShape2D.shape.extents
+	var miny= -13217
+	var maxy = 16478
+	var xper1 = abs(-1+2*(pos.x - minx)/(maxx-minx))
+	var yper1 = abs(-1+2*(pos.y - miny)/(maxy-miny))
+	var xper2 = abs(-1+2*(pos.x+ext.x - minx)/(maxx-minx))
+	var yper2 = abs(-1+2*(pos.y+ext.y - miny)/(maxy-miny))
+	var s = max(max(xper1, yper1), max(xper2, yper2))*100
+	if s >= 100 and not shore_award:
+		shore_award = true
+		get_node("CanvasLayer/ShoreAwardPanel").popup()
+	return s
+
 func _on_GuideMenu_pressed():
 	var n = get_node("CanvasLayer/GuideMenu")
 	if n.is_visible():
@@ -166,17 +186,7 @@ func _on_StoryMenuButton_pressed():
 	else:
 		get_node("CanvasLayer/Story/StoryPanel/MonkeyGoal").text = str(monkeys)+"/16"
 		get_node("CanvasLayer/Story/StoryPanel/WallGoal").text = str(walls)+"/20"
-		var minx =-14706
-		var maxx = 14990
-		var pos = $ExploredArea/CollisionShape2D.position
-		var ext = $ExploredArea/CollisionShape2D.shape.extents
-		var miny= -13217
-		var maxy = 16478
-		var xper1 = abs(-1+2*(pos.x - minx)/(maxx-minx))
-		var yper1 = abs(-1+2*(pos.y - miny)/(maxy-miny))
-		var xper2 = abs(-1+2*(pos.x+ext.x - minx)/(maxx-minx))
-		var yper2 = abs(-1+2*(pos.y+ext.y - miny)/(maxy-miny))
-		var s = max(max(xper1, yper1), max(xper2, yper2))*100
+		var s = compute_explored()
 		get_node("CanvasLayer/Story/StoryPanel/ShoreGoal").text = "%4.0f" % s+"%"
 		n.show()
 		get_node("CanvasLayer/GuideMenu").hide()
@@ -234,3 +244,15 @@ func _on_TextEdit_text_changed():
 			a = real_splitter_vert.instance()
 			a.position = last_bush.position
 			add_child_below_node(get_node("Bed"), a)
+
+
+func _on_HSlider_value_changed(value):
+	if value < -20:
+		value = value * (-value/20)
+	$AudioStreamPlayer.volume_db = value
+
+func _on_FullArea_area_exited(area):
+	compute_explored()
+	if not shore_award:
+		shore_award = true
+		get_node("CanvasLayer/ShoreAwardPanel").popup()

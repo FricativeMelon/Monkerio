@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://scenes/Monkey.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Bush.tscn" type="PackedScene" id=2]
@@ -19,11 +19,15 @@
 [ext_resource path="res://images/bush.png" type="Texture" id=17]
 [ext_resource path="res://images/items.png" type="Texture" id=18]
 [ext_resource path="res://scenes/ConstructionBedDummy.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Island Meet and Greet.mp3" type="AudioStream" id=20]
 [ext_resource path="res://images/splitter.png" type="Texture" id=21]
 [ext_resource path="res://images/monkeyidle.png" type="Texture" id=22]
 
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 174.497, 62.6329 )
+
 [sub_resource type="RectangleShape2D" id=16]
-extents = Vector2( 161.993, 38.0031 )
+extents = Vector2( 9755.48, 14846.4 )
 
 [sub_resource type="TileSet" id=1]
 0/name = "Grass 1.png 0"
@@ -117,7 +121,17 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExploredArea"]
-position = Vector2( 21.0315, -16.9482 )
+position = Vector2( 22.5104, -12.3183 )
+shape = SubResource( 17 )
+
+[node name="FullArea" type="Area2D" parent="."]
+position = Vector2( 401.482, 245.849 )
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FullArea"]
+position = Vector2( -282.088, 1295.74 )
+scale = Vector2( 1.51966, 1 )
 shape = SubResource( 16 )
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -220,10 +234,10 @@ mouse_filter = 2
 [node name="TabContainer" type="TabContainer" parent="CanvasLayer/Commands"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -180.0
-margin_top = 6.0
-margin_right = -26.0
-margin_bottom = 465.0
+margin_left = -179.0
+margin_top = 31.0
+margin_right = -25.0
+margin_bottom = 490.0
 
 [node name="Build" type="Panel" parent="CanvasLayer/Commands/TabContainer"]
 anchor_right = 1.0
@@ -445,33 +459,42 @@ margin_bottom = 14.0
 text = "0"
 
 [node name="BuildMenu" type="Button" parent="CanvasLayer"]
-margin_left = 777.0
+margin_left = 907.0
 margin_top = 4.0
-margin_right = 834.0
+margin_right = 964.0
 margin_bottom = 24.0
 text = "Build"
 
 [node name="GuideMenuButton" type="Button" parent="CanvasLayer"]
-margin_left = 626.0
-margin_top = 5.0
-margin_right = 691.0
-margin_bottom = 25.0
+margin_left = 837.0
+margin_top = 4.0
+margin_right = 902.0
+margin_bottom = 24.0
 text = "Guide"
 
 [node name="StoryMenuButton" type="Button" parent="CanvasLayer"]
-margin_left = 703.0
-margin_top = 5.0
-margin_right = 766.0
-margin_bottom = 25.0
+margin_left = 768.0
+margin_top = 3.0
+margin_right = 831.0
+margin_bottom = 23.0
 text = "Goals"
 
+[node name="HSlider" type="HSlider" parent="CanvasLayer"]
+margin_left = 599.011
+margin_top = 4.73438
+margin_right = 708.011
+margin_bottom = 20.7344
+min_value = -40.0
+max_value = 10.0
+value = -10.0
+
 [node name="Button" type="Button" parent="CanvasLayer"]
-margin_left = 515.0
-margin_top = 4.0
-margin_right = 617.0
-margin_bottom = 24.0
+margin_left = 509.0
+margin_top = 2.0
+margin_right = 582.0
+margin_bottom = 22.0
 disabled = true
-text = "Save Monkeys"
+text = "Rescue"
 
 [node name="GuideMenu" type="Control" parent="CanvasLayer"]
 visible = false
@@ -877,7 +900,7 @@ margin_left = 541.0
 margin_top = 50.0
 margin_right = 719.0
 margin_bottom = 90.0
-text = "Enter code here..."
+text = "Enter cheat code here..."
 
 [node name="MonkeyAwardPanel" type="PopupPanel" parent="CanvasLayer"]
 margin_left = 295.0
@@ -903,13 +926,42 @@ margin_left = 4.0
 margin_top = 4.0
 margin_right = 193.0
 margin_bottom = 122.0
-text = "Congrats on starting your infrastructure!! You've now unlocked a cheat code: SPLITTERMISS"
+text = "Congrats on starting your infrastructure! You've now unlocked a cheat code: SPLITTERMISS"
+
+[node name="ShoreAwardPanel" type="PopupPanel" parent="CanvasLayer"]
+margin_left = 190.0
+margin_top = 136.0
+margin_right = 639.0
+margin_bottom = 413.0
+
+[node name="RichTextLabel11" type="RichTextLabel" parent="CanvasLayer/ShoreAwardPanel"]
+margin_left = 33.0
+margin_top = 10.0
+margin_right = 430.0
+margin_bottom = 259.0
+rect_pivot_offset = Vector2( 55, 61 )
+custom_colors/default_color = Color( 1, 1, 1, 1 )
+custom_fonts/normal_font = SubResource( 9 )
+text = "Congrats on finishing the ultimate goal of the game! I'm so happy you played it through to completion, as it was a labor of love. You've unlocked the cheat code DISTANTSHORES, which may unlock great rewards at some point in the future, but not in this game!"
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+margin_left = 717.0
+margin_top = 7.0
+margin_right = 767.0
+margin_bottom = 21.0
+text = "Music"
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 14990, 16478.7 )
 scale = Vector2( -891.231, 56525.8 )
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
+volume_db = -13.275
+autoplay = true
+
 [connection signal="area_exited" from="ExploredArea" to="." method="_on_Area2D_area_exited"]
+[connection signal="area_exited" from="FullArea" to="." method="_on_FullArea_area_exited"]
 [connection signal="button_down" from="CanvasLayer/Commands/TabContainer/Build/RightLeaf" to="." method="_on_RightLeaf_button_down"]
 [connection signal="mouse_entered" from="CanvasLayer/Commands/TabContainer/Build/RightLeaf" to="." method="_on_HoverCursor_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Commands/TabContainer/Build/RightLeaf" to="." method="_on_HoverCursor_mouse_exited"]
@@ -940,6 +992,7 @@ scale = Vector2( -891.231, 56525.8 )
 [connection signal="pressed" from="CanvasLayer/BuildMenu" to="." method="_on_BuildMenu_pressed"]
 [connection signal="pressed" from="CanvasLayer/GuideMenuButton" to="." method="_on_GuideMenu_pressed"]
 [connection signal="pressed" from="CanvasLayer/StoryMenuButton" to="." method="_on_StoryMenuButton_pressed"]
+[connection signal="value_changed" from="CanvasLayer/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
 [connection signal="gui_input" from="CanvasLayer/GuideMenu/GuidePanel" to="." method="_on_GuidePanel_gui_input"]
 [connection signal="gui_input" from="CanvasLayer/Story/StoryPanel" to="." method="_on_StoryPanel_gui_input"]
